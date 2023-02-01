@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application - Bootstrap Table</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="i: ${story}">
+                    <td type="hidden" th:text="${i.id}">Position</td>
+                    <td th:text="${i.name}">Position</td>
+                    <td th:text="${#dates.format(i.date, 'dd.MM.yyyy')}">Start date</td>
+                    <td th:text="'$' + ${#numbers.formatDecimal(i.price, 0, 'COMMA', 2, 'POINT')}">Salary</td>
+
+                    <td> <td th:text="${#numbers.formatDecimal(i.rating, 0, 'COMMA', 2, 'POINT')}">Position</td>
+                        <form  th:action="@{/rate}" method="post">
+                            <input type="hidden" name="id" th:value="${i.id}">
+                            <select class="list__input" id="dropDownList" name="option">
+                                <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+                            </select>
+                            <button  type="submit">
+                                <i>rate</i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

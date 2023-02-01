@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Boot Thymeleaf Application - Bootstrap Table</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .submitpr__input {
+        display: block;
+        width: 113%;
+        padding: 20px;
+        font-family: $font-family;
+        -webkit-appearance: none;
+        border: 0;
+        outline: 0;
+        transition: 0.3s;
+
+
+    &:focus {
+         background: darken(#fff, 3%);
+     }
+    }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Thymeleaf - Bootstrap Table</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Services</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<form th:action="@{personalBusket}" method="get">
+    <button style="font-size:24px;position:absolute; top:10px; left:1500px;"> <i class="fa fa-shopping-basket"></i></button>
+</form>
+<form th:action="@{userstory}" method="get">
+<button style="font-size:15px;position:absolute; top:10px; left:1400px;">Your story</button>
+</form>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <form  id="myForm" th:action="@{/mainShop}" method="get">
+                <select id="sel_id" name="sel_name" onChange="nav()">
+                    <option value="0" selected>select sort</option>
+                    <!--Supplement an id here instead of using 'name'-->
+                    <option value="date_new">date new</option>
+                    <option value="date_old">date old</option>
+                    <option value="from_cheapest">from cheapest</option>
+                    <option value="from_most_expensive">from most expensive</option>
+                </select>
+                <div  class="form__group">
+                    <input type="submit" class="submitpr__input" value="Sign In"/>
+                </div>
+            </form>
+            <form  th:action="@{/filter}" method="post">
+                <input type="text" name="min">
+                <input type="text" name="max">
+                <select class="list__input" id="dropDownList" name="productType">
+                    <option value="0">select category</option>
+                    <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+                </select>
+                <select class="list__input" id="dropDownList2" name="productManuf">
+                    <option value="0">select manufacturer</option>
+                    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
+                </select>
+                <div  class="form__group">
+                    <input type="submit" class="submitpr__input" value="Sign In"/>
+                </div>
+            </form>
+
+
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Number</th>
+                    <th>Manufacturer</th>
+                    <th>Picture</th>
+                    <th>Grades</th>
+                    <th> Buy </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="i: ${purchases}">
+                    <td>
+                        <a th:href="@{'/purchase/details/' + ${i.id}}" th:text="${i.name}"></a>
+                    </td>
+                    <td th:text="${i.price}">Position</td>
+                    <td th:text="${i.productTypeName}">Office</td>
+                    <td th:text="${i.number}">Start date</td>
+                    <td th:text="${i.manufacturerName}">Salary</td>
+                    <td> <img th:src="@{/img/{filename}(filename = ${i.picName})}"  width="250" height="250"> </td>
+                    <td> <div th:if="${i.averageMark}==null">
+                        0
+                    </div>
+                        <div th:unless="${i.averageMark}==null">
+                            <p th:text="${#numbers.formatDecimal(i.averageMark, 0, 'COMMA', 2, 'POINT')}"></p>
+                        </div>
+                    <td>
+                        <form  th:action="@{/busket}" method="post">
+                            <input type="hidden" name="id" th:value="${i.id}">
+                            <button  type="submit">
+                                <i>to the busket</i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<script>
+
+
+</script>
+
+</body>
+</html>

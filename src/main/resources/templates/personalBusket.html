@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <style>
+
+        .blue-color {
+            color:blue;
+        }
+
+        .green-color {
+            color:green;
+        }
+
+        .teal-color {
+            color:teal;
+        }
+
+        .yellow-color {
+            color:yellow;
+        }
+
+        .red-color {
+            color:red;
+        }
+        </style>
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <tr th:each="entry, stats : ${busket}" th:with="element=${entry.key}">
+                    <td th:text="${stats.index + 1}">1</td>
+                    <td th:text="${element.name}">John</td>
+                    <td th:text="${element.price}">Doe</td>
+                    <td th:text="${element.manufacturer.getName()}">john.doe@example.com</td>
+                    <td> <img th:src="@{/img/{filename}(filename = ${element.picName})}"  width="250" height="250"> </td>
+                   <!-- <td th:text="${entry.value}">100</td>-->
+                    <td>
+                        <form th:action="@{clickMinus}"  method = "get">
+                            <div id="mainDiv">
+                                <input type="hidden"  name="id" th:value="${element.id}">
+                                <button id="minus">-</button>
+
+                                <span th:text="${number!= null} ? ${number} : 'null value!'">someValue</span>
+
+                            </div>
+                        </form>
+                        <span id="numberPlace2" th:text="${entry.value}"></span>
+                        <form th:action="@{clickPlus}" method = "get">
+                            <div id="mainDiv2">
+                                <input type="hidden"  name="id" th:value="${element.id}">
+                                <button id="plus">+</button>
+                                <span th:text="${number!= null} ? ${number} : 'null value!'">someValue</span>
+                            </div>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{clickDelete}" method="get">
+                            <input type="hidden"  name="id" th:value="${element.id}">
+                            <button type="submit" class="bi bi-trash red-color">
+                                <span class="bi bi-trash red-color"></span> Delete</button>
+                        </form>
+
+                    </td>
+                </tr>
+                </table>
+          <form th:action="@{clickBuy}" method="get">
+                <input type="hidden"  name="id" th:value="${id}">
+                <button type="submit" class="bi bi-trash red-color">
+                    <span class="bi bi-trash red-color"></span> Оформить заказ</button>
+            </form>
+            <p th:text="'Общая стоимость корзины, ' + ${cost} + '!'" />
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

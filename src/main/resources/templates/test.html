@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link th:rel="stylesheet" th:href="@{webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Product Type</th>
+                    <th>Number</th>
+                    <th>Manufacturer</th>
+                    <th>Grades</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="i: ${purchases}">
+                    <td>
+                        <a th:href="@{'/purchase/details/' + ${i.id}}" th:text="${i.name}"></a>
+                    </td>
+                    <td th:text="${i.price}">Position</td>
+                    <td th:text="${i.productTypeName}">Office</td>
+                    <td th:text="${i.number}">Start date</td>
+                    <td th:text="${i.manufacturerName}">Salary</td>
+                    <td th:text="${i.grades}">Salary</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<body>
+
+<!-- Navigation -->
+
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+<script>
+
+
+</script>
+
+</body>
+
+</form>
+</body>
+</html>
